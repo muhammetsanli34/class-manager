@@ -7,53 +7,107 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  STUDENT
+  TEACHER
+  ADMIN
+}
+
 model User {
-  id       Int      @id @default(autoincrement())
-  name     String
-  surname  String
-  username String   @unique
-  password String
-  image    String
-}
-
-model Student {
-  id      Int    @id @default(autoincrement())
-  user_id Int
-  class_id Int
-}
-
-model Teachers {
-  id      Int    @id @default(autoincrement())
-  user_id Int
+  id                Int            @id @default(autoincrement())
+  username          String
+  password_hash     String
+  first_name        String
+  last_name         String
+  email             String         @unique
+  profile_picture   String?
+  role              Role
+  messages_sent     Message[]
+  messages_received Message[]      @relation("UserToMessages")
+  submissions       Submission[]
+  marks             Mark[]
+  classesTaught     Class[]        @relation("TeacherClasses")
+  student_classes   StudentClass[]
+  created_at        DateTime       @default(now())
+  updated_at        DateTime       @default(now())
 }
 
 model Class {
-  id      Int    @id @default(autoincrement())
+  id         Int      @id @default(autoincrement())
+  name       String
   teacher_id Int
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+
+  teacher         User           @relation("TeacherClasses", fields: [teacher_id], references: [id])
+  assignments     Assignment[]
+  notices         Notice[]
+  student_classes StudentClass[]
+  marks           Mark[]
+}
+
+model StudentClass {
+  id         Int      @id @default(autoincrement())
+  student    User     @relation(fields: [student_id], references: [id])
+  student_id Int      @unique
+  class      Class    @relation(fields: [class_id], references: [id])
+  class_id   Int      @unique
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
 }
 
 model Notice {
-  id      Int    @id @default(autoincrement())
-  notice  String
-  teacher_id Int
+  id         Int      @id @default(autoincrement())
+  content    String
+  class      Class    @relation(fields: [class_id], references: [id])
+  class_id   Int
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
 }
 
-model Homework {
-  id      Int    @id @default(autoincrement())
-  subject String
-  class_id Int
+model Assignment {
+  id         Int         @id @default(autoincrement())
+  title      String
+  content    String
+  class      Class       @relation(fields: [class_id], references: [id])
+  class_id   Int
+  file       String
+  Marks      Mark[]
+  created_at DateTime    @default(now())
+  updated_at DateTime    @default(now())
+  Submission Submission?
 }
 
 model Mark {
-  id      Int    @id @default(autoincrement())
-  mark    Int
-  student_id Int
-  homework_id Int
+  id            Int        @id @default(autoincrement())
+  student       User       @relation(fields: [student_id], references: [id])
+  student_id    Int
+  assignment    Assignment @relation(fields: [assignment_id], references: [id])
+  assignment_id Int
+  mark          Int
+  class         Class      @relation(fields: [class_id], references: [id])
+  class_id      Int
+  created_at    DateTime   @default(now())
+  updated_at    DateTime   @default(now())
+}
+
+model Submission {
+  id            Int        @id @default(autoincrement())
+  student       User       @relation(fields: [student_id], references: [id])
+  student_id    Int        @unique
+  assignment    Assignment @relation(fields: [assignment_id], references: [id])
+  assignment_id Int        @unique
+  file          String
+  created_at    DateTime   @default(now())
+  updated_at    DateTime   @default(now())
 }
 
 model Message {
-  id Int @id @default(autoincrement())
-  text String
-  student_id Int
-  teacher_id Int
+  id          Int      @id @default(autoincrement())
+  text        String
+  sender      User     @relation(fields: [sender_id], references: [id])
+  sender_id   Int
+  receiver    User     @relation("UserToMessages", fields: [receiver_id], references: [id])
+  receiver_id Int
+  created_at  DateTime @default(now())
 }
