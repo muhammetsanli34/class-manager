@@ -9,6 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@fontsource/roboto": "^5.0.13",
+    "@mui/icons-material": "^5.15.18",
+    "@mui/material": "^5.15.18",
     "@prisma/client": "^5.13.0",
     "@types/node": "20.2.5",
     "@types/react": "18.2.7",
