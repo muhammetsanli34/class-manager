@@ -8,7 +8,7 @@ interface BaseRegisterProps {
 
 export default function BaseRegister(props: BaseRegisterProps) {
   return (
-    <div>
+    <div className="container vertical-center">
       <FormControl className={style.register}>
         <Grid container spacing={2}>
           <Grid item xs={6}>
@@ -26,7 +26,6 @@ export default function BaseRegister(props: BaseRegisterProps) {
           <Grid item xs={6}>
             <Input type="" placeholder="Confirm Password" />
           </Grid>
-          // profile picture
           <Grid item xs={6}>
             <Input type="file" placeholder="Profile Picture" />
           </Grid>
