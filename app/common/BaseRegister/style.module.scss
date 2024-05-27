@@ -1,10 +1,9 @@
 .register {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 20px;
+    display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    gap: 2rem;
     // background-color: #fbfbfb;
     // padding: 20px;
     // border-radius: 10px;

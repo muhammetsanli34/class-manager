@@ -20,9 +20,9 @@ export default function BaseRegister(props: BaseRegisterProps) {
         <Typography variant="h4" align="center" style={{ marginTop: "5rem" }}>
           Register
         </Typography>
-        <Card>
+        <Card className="w-1/2">
           <CardContent>
-            <Grid container spacing={2}>
+            <Grid container spacing={6}>
               <Grid item xs={6}>
                 <Input placeholder="First Name" />
               </Grid>
