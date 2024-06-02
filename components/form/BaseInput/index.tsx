@@ -17,7 +17,6 @@ export default function BaseInput(props: BaseInputProps) {
             {...props}
             error={!!errors[props.name]}
             onChange={(e) => {
-              console.log("values", values);
               props.onChange
                 ? props.onChange(e)
                 : (values[props.name] = e.target.value);
