@@ -41,7 +41,7 @@ export default function BaseRegister(props: BaseRegisterProps) {
         <Typography variant="h4" align="center" style={{ marginTop: "5rem" }}>
           Register
         </Typography>
-        <Card className="w-1/2">
+        <Card className="w-1/2 mx-auto mt-5">
           <CardContent>
             <Grid container spacing={6}>
               <Grid item xs={6}>
