@@ -20,12 +20,25 @@ interface BaseRegisterProps {
 
 export default function BaseRegister(props: BaseRegisterProps) {
   const formValues = {
-    firstName: "",
-    lastName: "",
+    first_name: "",
+    last_name: "",
     email: "",
     password: "",
     confirmPassword: "",
-    profilePicture: "",
+    profile_picture: "",
+    role: props.role,
+  };
+
+  const submit = async () => {
+    fetch("/api/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formValues),
+    }).then((res) => {
+      console.log(res);
+    });
   };
 
   return (
@@ -33,7 +46,7 @@ export default function BaseRegister(props: BaseRegisterProps) {
       <FormBase
         className={style.register}
         submit={() => {
-          console.log(registerSchema);
+          submit();
         }}
         values={formValues}
         rules={registerSchema}
@@ -54,7 +67,11 @@ export default function BaseRegister(props: BaseRegisterProps) {
                 <BaseInput placeholder="Email" name="email" />
               </Grid>
               <Grid item xs={6}>
-                <BaseInput placeholder="Password" name="password" />
+                <BaseInput
+                  placeholder="Password"
+                  name="password"
+                  type="password"
+                />
               </Grid>
               <Grid item xs={6}>
                 <BaseInput
