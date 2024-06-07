@@ -1,32 +1,34 @@
 import prisma from "@/lib/prisma";
-import { APIResponse } from "@/types/ApiResponse";
+import RegisterDto from "@/types/Dto/Register";
 import { Prisma } from "@prisma/client";
 import bcrypt from "bcrypt";
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(
-  req: NextApiRequest,
-  res: NextApiResponse<APIResponse<any>>
-) {
+export async function POST(request: NextRequest) {
   try {
-    const requestBody: Prisma.UserCreateInput = await req.body;
-    requestBody.password_hash = await bcrypt.hash(
-      requestBody.password_hash,
-      10
-    );
-    const user = await prisma.user.create({
-      data: requestBody,
+    const requestBody: RegisterDto = await request.json();
+    const newUser: Prisma.UserCreateInput = {
+      username: requestBody.email,
+      first_name: requestBody.first_name,
+      last_name: requestBody.last_name,
+      email: requestBody.email,
+      password_hash: await bcrypt.hash(requestBody.password, 10),
+      profile_picture: requestBody.profile_picture,
+      role: requestBody.role,
+    };
+    const createdUser = await prisma.user.create({
+      data: newUser,
     });
-    return res.status(200).json({
+    return NextResponse.json({
       status: 200,
-      data: user,
+      data: createdUser,
       message: "User created successfully",
     });
   } catch (error) {
-    return res.status(500).json({
+    console.error("Error creating user", error);
+    return NextResponse.json({
       status: 500,
-      data: error,
-      message: "Error creating user",
+      message: "Something went wrong",
     });
   }
 }
