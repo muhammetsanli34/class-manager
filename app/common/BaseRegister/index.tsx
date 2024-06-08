@@ -13,12 +13,17 @@ import FormBase from "@/components/form/FormBase";
 import BaseInput from "@/components/form/BaseInput";
 import registerSchema from "@/app/validations/Register";
 import { Role } from "@prisma/client";
+import Alert from "@mui/material/Alert";
+import { useContext } from "react";
+import { AlertContext } from "@/providers/AlertProvider";
 
 interface BaseRegisterProps {
   role: Role;
 }
 
 export default function BaseRegister(props: BaseRegisterProps) {
+  const alert = useContext(AlertContext);
+
   const formValues = {
     first_name: "",
     last_name: "",
@@ -37,7 +42,18 @@ export default function BaseRegister(props: BaseRegisterProps) {
       },
       body: JSON.stringify(formValues),
     }).then((res) => {
-      console.log(res);
+      res
+        .json()
+        .then((data) => {
+          if (res.ok) {
+            alert(data.message, "success");
+          } else {
+            alert(data.message, "error");
+          }
+        })
+        .catch((err) => {
+          alert("Error registering user", "error");
+        });
     });
   };
 
