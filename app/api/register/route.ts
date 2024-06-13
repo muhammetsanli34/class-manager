@@ -43,7 +43,6 @@ export async function POST(request: NextRequest) {
       message: "User created successfully",
     });
   } catch (error) {
-    console.error("Error creating user", error);
     return NextResponse.json({
       status: 500,
       message: "Something went wrong",
