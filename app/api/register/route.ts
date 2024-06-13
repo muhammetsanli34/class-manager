@@ -3,6 +3,7 @@ import RegisterDto from "@/types/Dto/Register";
 import { Prisma } from "@prisma/client";
 import bcrypt from "bcrypt";
 import { NextRequest, NextResponse } from "next/server";
+import jwt from "jsonwebtoken";
 
 export async function POST(request: NextRequest) {
   try {
@@ -16,12 +17,29 @@ export async function POST(request: NextRequest) {
       profile_picture: requestBody.profile_picture,
       role: requestBody.role,
     };
+
     const createdUser = await prisma.user.create({
       data: newUser,
     });
+
+    const token = jwt.sign(
+      {
+        user_id: createdUser.id,
+        username: createdUser.username,
+        role: createdUser.role,
+      },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "1h",
+      }
+    );
+
     return NextResponse.json({
       status: 200,
-      data: createdUser,
+      data: {
+        user: createdUser,
+        token,
+      },
       message: "User created successfully",
     });
   } catch (error) {
