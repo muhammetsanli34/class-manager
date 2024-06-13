@@ -13,15 +13,18 @@ import FormBase from "@/components/form/FormBase";
 import BaseInput from "@/components/form/BaseInput";
 import registerSchema from "@/app/validations/Register";
 import { Role } from "@prisma/client";
-import Alert from "@mui/material/Alert";
 import { useContext } from "react";
 import { AlertContext } from "@/providers/AlertProvider";
+import { useRouter } from 'next/navigation'
 
 interface BaseRegisterProps {
   role: Role;
 }
 
 export default function BaseRegister(props: BaseRegisterProps) {
+
+  const router = useRouter();
+
   const alert = useContext(AlertContext);
 
   const formValues = {
@@ -47,6 +50,7 @@ export default function BaseRegister(props: BaseRegisterProps) {
         .then((data) => {
           if (res.status === 200) {
             alert(data.message, "success");
+            router.push("/");
           } else {
             alert(data.message, "error");
           }
