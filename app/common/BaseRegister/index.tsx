@@ -16,6 +16,7 @@ import { Role } from "@prisma/client";
 import { useContext } from "react";
 import { AlertContext } from "@/providers/AlertProvider";
 import { useRouter } from 'next/navigation'
+import { cookies } from "next/headers";
 
 interface BaseRegisterProps {
   role: Role;
@@ -51,6 +52,8 @@ export default function BaseRegister(props: BaseRegisterProps) {
           if (res.status === 200) {
             alert(data.message, "success");
             router.push("/");
+            cookies().set("token", data.token);
+            cookies().set("user", JSON.stringify(data.user));
           } else {
             alert(data.message, "error");
           }
