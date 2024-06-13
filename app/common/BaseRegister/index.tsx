@@ -45,7 +45,7 @@ export default function BaseRegister(props: BaseRegisterProps) {
       res
         .json()
         .then((data) => {
-          if (res.ok) {
+          if (res.status === 200) {
             alert(data.message, "success");
           } else {
             alert(data.message, "error");
