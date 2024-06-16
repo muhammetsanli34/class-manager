@@ -52,8 +52,8 @@ export default function BaseRegister(props: BaseRegisterProps) {
           if (res.status === 200) {
             alert(data.message, "success");
             router.push("/");
-            cookies().set("token", data.token);
-            cookies().set("user", JSON.stringify(data.user));
+            sessionStorage.setItem("token", data.token);
+            sessionStorage.setItem("user", JSON.stringify(data.user));
           } else {
             alert(data.message, "error");
           }
