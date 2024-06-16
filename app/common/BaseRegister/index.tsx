@@ -16,7 +16,6 @@ import { Role } from "@prisma/client";
 import { useContext } from "react";
 import { AlertContext } from "@/providers/AlertProvider";
 import { useRouter } from 'next/navigation'
-import { cookies } from "next/headers";
 
 interface BaseRegisterProps {
   role: Role;
