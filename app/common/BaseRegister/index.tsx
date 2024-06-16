@@ -75,7 +75,7 @@ export default function BaseRegister(props: BaseRegisterProps) {
         rules={registerSchema}
       >
         <Typography variant="h4" align="center" style={{ marginTop: "5rem" }}>
-          Register
+          {props.role === Role.STUDENT ? "Student" : "Teacher"} Register
         </Typography>
         <Card className="w-1/2 mx-auto mt-5">
           <CardContent>
