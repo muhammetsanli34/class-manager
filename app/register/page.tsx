@@ -1,4 +1,5 @@
 import { headers } from "next/headers";
+import Tabs from "./tabs";
 
 export default function Register() {
   const headerList = headers();
@@ -11,6 +12,7 @@ export default function Register() {
           : "Teacher"}
         Registration
       </h1>
+      <Tabs />
     </div>
   );
 }

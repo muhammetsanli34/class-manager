@@ -24,7 +24,7 @@ export default function RootLayout({
       <body>
         <AppRouterCacheProvider
           options={{
-            enableCssLayer: true,
+            // enableCssLayer: true,
           }}
         >
           <ThemeProvider theme={theme}>

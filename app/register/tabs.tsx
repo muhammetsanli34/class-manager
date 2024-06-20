@@ -6,20 +6,14 @@ import { Tab, Tabs } from "@mui/material";
 import { Role } from "@prisma/client";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-// import SwipeableViews from "react-{headers} from "next/headers";
-import { headers } from "next/headers";
-
-// return current path to component
 
 export default function Register() {
-  const headerList = headers();
   const pathname = usePathname();
 
-  const [role, setRole] = useState<Role>(
-    pathname.includes("student") ? Role.STUDENT : Role.TEACHER
+  const [role, setRole] = useState<2 | 1>(
+    pathname.includes(Role.STUDENT.toLocaleLowerCase()) ? 2 : 1
   );
-  const handleChange = (event: React.ChangeEvent<{}>, newValue: Role) => {
-    // setRole(newValue);
+  const handleChange = (event: React.ChangeEvent<{}>, newValue: 2 | 1) => {
     setRole(newValue);
   };
   return (
@@ -31,17 +25,15 @@ export default function Register() {
         textColor="primary"
         centered
       >
-        <Tab label="Teacher" value={Role.TEACHER} />
-        <Tab label="Student" value={Role.STUDENT} />
+        <Tab label="Teacher" value={1} />
+        <Tab label="Student" value={2} />
       </Tabs>
-      {/* <SwipeableViews index={role} onChangeIndex={setRole}>
-        <TabPanel value={role} index={Role.TEACHER}>
+        <TabPanel value={1} index={role}>
           <BaseRegister role={Role.TEACHER} />
         </TabPanel>
-        <TabPanel value={role} index={Role.STUDENT}>
+        <TabPanel value={2} index={role}>
           <BaseRegister role={Role.STUDENT} />
         </TabPanel>
-      </SwipeableViews> */}
     </>
   );
 }

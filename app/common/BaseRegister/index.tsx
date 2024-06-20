@@ -1,14 +1,5 @@
-"use client";
-
 import style from "./style.module.scss";
-import {
-  Button,
-  Card,
-  CardContent,
-  Grid,
-  Input,
-  Typography,
-} from "@mui/material";
+import { Button, Card, CardContent, Grid } from "@mui/material";
 import FormBase from "@/components/form/FormBase";
 import BaseInput from "@/components/form/BaseInput";
 import registerSchema from "@/app/validations/Register";
