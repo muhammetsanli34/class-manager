@@ -15,14 +15,13 @@ import registerSchema from "@/app/validations/Register";
 import { Role } from "@prisma/client";
 import { useContext } from "react";
 import { AlertContext } from "@/providers/AlertProvider";
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation";
 
 interface BaseRegisterProps {
   role: Role;
 }
 
 export default function BaseRegister(props: BaseRegisterProps) {
-
   const router = useRouter();
 
   const alert = useContext(AlertContext);
@@ -73,9 +72,6 @@ export default function BaseRegister(props: BaseRegisterProps) {
         values={formValues}
         rules={registerSchema}
       >
-        <Typography variant="h4" align="center" style={{ marginTop: "5rem" }}>
-          {props.role === Role.STUDENT ? "Student" : "Teacher"} Register
-        </Typography>
         <Card className="w-1/2 mx-auto mt-5">
           <CardContent>
             <Grid container spacing={6}>
