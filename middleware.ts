@@ -1,10 +1,11 @@
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 
 const protectedRoutes: Array<string> = [];
 
 export function middleware(request: NextRequest) {
-  // get the after "api/" part of the url
+  const headers = new Headers(request.headers);
+  headers.set("x-current-path", request.url);
   if (request.url.includes("api")) {
     const endpoint = request.url.split("api/")[1];
     if (protectedRoutes.includes(endpoint)) {
@@ -30,6 +31,9 @@ export function middleware(request: NextRequest) {
         };
       }
       return;
+    } else {
+      return NextResponse.next({headers});
     }
   }
+  return NextResponse.next({headers});
 }
