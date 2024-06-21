@@ -10,9 +10,7 @@ import { useState } from "react";
 export default function Register() {
   const pathname = usePathname();
 
-  const [role, setRole] = useState<2 | 1>(
-    pathname.includes(Role.STUDENT.toLocaleLowerCase()) ? 2 : 1
-  );
+  const [role, setRole] = useState<2 | 1>(2);
   const handleChange = (event: React.ChangeEvent<{}>, newValue: 2 | 1) => {
     setRole(newValue);
   };
