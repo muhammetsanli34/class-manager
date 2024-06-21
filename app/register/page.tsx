@@ -1,4 +1,3 @@
-import { headers } from "next/headers";
 import Tabs from "./tabs";
 
 export default function Register() {

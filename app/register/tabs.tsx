@@ -1,5 +1,4 @@
 "use client";
-
 import BaseRegister from "@/app/common/BaseRegister";
 import TabPanel from "@/components/TabPanel";
 import { Tab, Tabs } from "@mui/material";
